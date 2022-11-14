@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<html>
+    <head>
+        <title>1st page of a website</title>
+    </head>
+    <style>
+        body{
+            background-image:url('img_js.jpg');
+            background-repeat:no-repeat;
+            background-attachment:fixed;
+            background-size:cover;
+        }
+        h1{
+    text-shadow: 2px 2px 5px black;
+  }
+ a:hover {
+  background-color:whitesmoke;
+}
+    </style>
+    <body>
+        <br><br><br><br><br><br><br><br>
+
+        <h1 style="text-align:center;color:black;font-size:300%;font-family:verdana;">MY WEBPAGE</h1>
+        <br>
+        
+        <div class="button"><h2 style="text-align:center;"><a href="assignment.html"><b style="border:1px solid">LOGIN</b></a></h2></div>
+    </body>
+</html>/*
+1.PROGRAM:
+import java.io.*;
+import java .lang.*;
+public class Bitstuffing
+{
+public static void main(String args[])throws IOException{
+int i=0,x,q=0;
+InputStreamReader isr=new InputStreamReader(System.in);
+BufferedReader br=new BufferedReader(isr);
+String sy="01111110",sx;
+StringBuilder sby=new StringBuilder(sy);
+System.out.println("enter the data:");
+sx=br.readLine();
+StringBuilder sbx=new StringBuilder(sx);
+x=sx.length();
+while(i+5<=x)
+{
+String s1=sx.substring(i,i+5);
+if(check(s1))
+{
+sbx.insert(i+5,0);
+i=i+6;
+}
+else
+i++;
+}
+System.out.println("bit stuffing:");
+System.out.println(sbx);
+System.out.println("final output:");
+System.out.println(sby+" "+sbx+" "+sby);
+System.out.println(sby.append(sbx.append(sby)));
+}
+private static boolean check(String s)
+{
+String s1="11111";
+if(s.equals(s1))
+return true;
+else return false;
+}}
+OUTPUT:
+G:\>javac Bitstuffing.java
+G:\>java Bitstuffing
+enter the data:
+110011111101111111
+bit stuffing:
+110011111101111111
+final output:
+01111110 01111110 01111110
+0111111011001111110111111101111110
+2.PROGRAM:
+• Sender:
+import java.io.*;
+import java.net.*;
+import java.util.Scanner;
+class stopwaitsender
+{
+public static void main(String args[]) throws Exception
+{
+stopwaitsender sws = new stopwaitsender();
+sws.run();
+}
+public void run() throws Exception
+{
+Scanner sc=new Scanner(System.in);
+System.out.println(“Enter no of frames to be sent:”);
+int n=sc.nextInt();
+Socket myskt=new Socket(“localhost”,9999);
+PrintStream myps=new PrintStream(myskt.getOutputStream());
+for(int i=0;i<=n;)
+{
+if(i==n)
+{
+myps.println(“exit”);
+break;
+}
+System.out.println(“Frame no “+i+” is sent”);
+myps.println(i);
+BufferedReader bf=new BufferedReader(new 
+InputStreamReader(myskt.getInputStream()));
+String ack=bf.readLine();
+if(ack!=null)
+{
+System.out.println(“Acknowledgement was Received from receiver”);
+i++;
+Thread.sleep(4000);
+}
+else
+{
+myps.println(i);
+}}}}
+• Receiver:
+import java.io.*;
+import java.net.*;
+class stopwaitreceiver
+{
+public static void main(String args[])throws Exception
+{
+stopwaitreceiver swr = new stopwaitreceiver();
+swr.run();
+}
+public void run() throws Exception
+{
+String temp=”any message”,str=”exit”;
+ServerSocket myss=new ServerSocket(9999);
+Socket ss_accept=myss.accept();
+BufferedReader ss_bf=new BufferedReader(new 
+InputStreamReader(ss_accept.getInputStream()));
+PrintStream myps=new PrintStream(ss_accept.getOutputStream());
+while(temp.compareTo(str)!=0)
+{
+Thread.sleep(1000);
+temp=ss_bf.readLine();
+if(temp.compareTo(str)==0)
+{ break;}
+System.out.println(“Frame “+temp+” was received”);
+Thread.sleep(500);
+myps.println(“Received”);
+}
+System.out.println(“ALL FRAMES WERE RECEIVED SUCCESSFULLY”);
+}}
+OUTPUT:
+• Sender:
+C:\javaprog>javac stopwaitsender.java
+C:\javaprog>java stopwaitsender
+Enter no of frames to be sent:
+4
+Frame no 0 is sent
+Acknowledgement was Received from receiver
+Frame no 1 is sent
+Acknowledgement was Received from receiver
+Frame no 2 is sent
+Acknowledgement was Received from receiver
+Frame no 3 is sent
+Acknowledgement was Received from receiver
+• Receiver:
+C:\javaprog>javac stopwaitreceiver.java
+C:\javaprog>java stopwaitreceiver
+Frame 0 was received
+Frame 1 was received
+Frame 2 was received
+Frame 3 was received
+ALL FRAMES WERE RECEIVED SUCCESSFULLY
+3.PROGRAM:
+import java.io.*;
+public class GoBackN {
+public static void main(String args[]) throws IOException
+{
+BufferedReaderbr = new BufferedReader(new InputStreamReader(System.in));
+System.out.println("Please enter the Window Size: ");
+int window = Integer.parseInt(br.readLine());
+boolean loop = true;
+int sent = 0;
+while(loop)
+{
+for(inti = 0; i< window; i++)
+{
+System.out.println("Frame " + sent + " has been transmitted.");
+sent++;
+if(sent == window)
+break;
+}
+System.out.println("Please enter the last Acknowledgement received.");
+intack = Integer.parseInt(br.readLine());
+if(ack == window)
+loop = false;
+else
+sent = ack;
+}}}
+OUTPUT:
+Please enter the Window Size: 
+7
+Frame 0 has been transmitted.
+Frame 1 has been transmitted.
+Frame 2 has been transmitted.
+Frame 3 has been transmitted.
+Frame 4 has been transmitted.
+Frame 5 has been transmitted.
+Frame 6 has been transmitted.
+Please enter the last Acknowledgement received.
+3
+Frame 3 has been transmitted.
+Frame 4 has been transmitted.
+Frame 5 has been transmitted.
+Frame 6 has been transmitted.
+Please enter the last Acknowledgement received.
+5
+Frame 5 has been transmitted.
+Frame 6 has been transmitted.
+Please enter the last Acknowledgement received.
+7
+4.PROGRAM:
+import java.io.*;
+public class SelectiveRepeatAlg
+{
+int intToPkt,intWinSize,intPktNo,intPCount;
+public SelectiveRepeatAlg()throws Exception
+{
+BufferedReader br=new BufferedReader(new InputStreamReader(new 
+DataInputStream(System.in)));
+System.out.println("Enter the window size");
+intWinSize=Integer.parseInt(br.readLine());
+System.out.println("enter Total no. of packets");
+intToPkt=Integer.parseInt(br.readLine());
+System.out.println("Do you want to kill any Packets:(y/n)");
+String strAns=br.readLine();
+if(strAns.equals("y"))
+{
+System.out.println("Enter NO.of Packets 2 kill");
+intPktNo=Integer.parseInt(br.readLine());
+intPCount=1;
+}}
+public void sRepeat(int pn)throws Exception
+{
+System.out.println("------------------------------");
+System.out.println("Selective Repeats of packets"+pn);
+System.out.println("-------------------------------");
+Thread.sleep(1000);
+System.out.println("Packet "+(pn)+("send==>"));
+Thread.sleep(1000);
+System.out.println("Packet"+(pn)+("received==>"));
+Thread.sleep(2000);
+System.out.println("ACK"+(pn)+" Received");
+}
+public int calculate(int cos,int pno)
+{
+int n;
+if(cos>pno)
+n=intWinSize-(intPktNo%intWinSize);
+else
+n=intWinSize-intPktNo;
+return n;
+}
+public void trans()throws Exception
+{
+int intC,intCount=0;
+while(intPCount<intToPkt)
+{
+if(intCount==intWinSize)
+{
+System.out.println("Next Session");
+intCount=0;
+}
+if(intPktNo==intPCount)
+{
+System.out.println("Packet"+intPktNo+"discard---->");
+Thread.sleep(2000);
+intPCount++;
+intC=calculate(intWinSize,intPktNo);
+System.out.println("Remaining Packet to be sent in the fashion"+intC);
+for(int j=0;j<=intC;j++)
+{
+Thread.sleep(1000);
+System.out.println("Packet "+intPCount+"Sent==>");
+Thread.sleep(1000);
+System.out.println("\t\tPacket"+intPCount+" Received");
+Thread.sleep(2000);
+System.out.println("ACK"+intPCount+"Received");
+intPCount++;
+intCount=0;
+}
+sRepeat(intPktNo);
+Thread.sleep(2000);
+System.out.println("next Session");
+intCount=0;
+}
+else{
+Thread.sleep(1000);
+System.out.println("Packet"+intPCount+"send==>");
+Thread.sleep(1000);
+System.out.println("\t\t packet"+intPCount+"Received");
+intPCount++;
+}
+intPCount++;
+}}
+public static void main(String agr[])throws Exception
+{
+SelectiveRepeatAlg obSRA=new SelectiveRepeatAlg();
+obSRA.trans();
+}}
+OUTPUT:
+F:\11069>java SelectiveRepeatAlg
+Enter the window size
+3
+enter Total no. of packets
+5
+Do you want to kill any Packets:(y/n)
+y
+Enter NO.of Packets 2 kill
+2
+Packet1send==>
+ packet1Received
+Packet3send==>
+ packet3Received
+F:\11069>java SelectiveRepeatAlg
+Enter the window size
+3
+enter Total no. of packets
+5
+Do you want to kill any Packets:(y/n)
+n
+Packet0discard---->
+Remaining Packet to be sent in the fashion3
+Packet 1Sent==>
+ Packet1 Received
+ACK1Received
+Packet 2Sent==>
+ Packet2 Received
+ACK2Received
+Packet 3Sent==>
+ Packet3 Received
+ACK3Received
+Packet 4Sent==>
+ Packet4 Received
+ACK4Received
+------------------------------
+Selective Repeats of packets0
+-------------------------------
+Packet 0send==>
+Packet0received==>
+ACK0 Received
+next Session
+5.Program:-
+class GFG
+{
+static void BellmanFord(int graph[ ][ ], int V, int E, int src)
+{
+    // Initialize distance of all vertices as infinite.
+    int []dis = new int[V];
+    for (int i = 0; i < V; i++)
+        dis[i] = Integer.MAX_VALUE;
+ 
+    // initialize distance of source as 0
+    dis[src] = 0;
+    for (int i = 0; i < V - 1; i++)
+    {
+ 
+        for (int j = 0; j < E; j++)
+        {
+            if (dis[graph[j][0]] != Integer.MAX_VALUE && dis[graph[j][0]] + graph[j][2] <
+                            dis[graph[j][1]])
+                dis[graph[j][1]] =
+                dis[graph[j][0]] + graph[j][2];
+        }
+    }
+ //check for negative-weight cycles. 
+    for (int i = 0; i < E; i++)
+    {
+        int x = graph[i][0];
+        int y = graph[i][1];
+        int weight = graph[i][2];
+        if (dis[x] != Integer.MAX_VALUE &&
+                dis[x] + weight < dis[y])
+            System.out.println("Graph contains negative" +" weight cycle");
+    }
+     System.out.println("Vertex Distance from Source");
+    for (int i = 0; i < V; i++)
+        System.out.println(i + "\t\t" + dis[i]);
+}
+// Main program
+public static void main(String[] args)
+{
+    int V = 6; // Number of vertices in graph
+    int E = 8; // Number of edges in graph
+    /* Every edge has three values (u, v, w) where  the edge is from vertex u to v. And weight of the edge is w.
+    int graph[][] = { { 0, 1, 10 }, { 0, 5, 8 },
+                    { 1, 3, 2 }, {2,1,1}, { 3, 2, -2 },
+                    { 4, 1, -4 }, { 4, 3, -1 }, {5, 4, 1} };
+ 
+    BellmanFord(graph, V, E, 0);
+    }
+}
+Sample Output :-
+Vertex Distance from Source S
+S		0
+A		5
+B		5
+C		7
+D		9
+E		8
+
+6.Program:
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+  
+class ShortestPath 
+{
+    static final int V = 4;
+    int minDistance(int dist[], Boolean sptSet[])
+    {
+        int min = Integer.MAX_VALUE, min_index = -1;
+  
+        for (int v = 0; v < V; v++)
+            if (sptSet[v] == false && dist[v] <= min) 
+{
+                min = dist[v];
+                min_index = v;
+            }
+  
+        return min_index;
+    }
+    void printSolution(int dist[], int n)
+    {
+        System.out.println("Vertex   Distance from Source");
+        for (int i = 0; i < V; i++)
+        System.out.println(i + " tt " + dist[i]);
+    }
+ void dijkstra(int graph[][], int src)
+    {
+        int dist[] = new int[V]; 
+             
+        Boolean sptSet[] = new Boolean[V];
+  
+       for (int i = 0; i < V; i++) 
+{
+            dist[i] = Integer.MAX_VALUE;
+            sptSet[i] = false;
+        	}
+       dist[src] = 0;
+       for (int count = 0; count < V - 1; count++) 
+        {
+            int u = minDistance(dist, sptSet);
+            sptSet[u] = true;
+            for (int v = 0; v < V; v++)
+            if (!sptSet[v] && graph[u][v] != 0 && 
+                 dist[u] != Integer.MAX_VALUE && 
+dist[u] + graph[u][v] < dist[v])
+                    dist[v] = dist[u] + graph[u][v];
+        }
+       printSolution(dist, V);
+    }
+    // Driver method
+    public static void main(String[] args)
+    {
+        /* Let us create the example graph discussed above */
+        int graph[][] = new int[][] { 
+            {0,5,10,0},
+            {5,0,3,11},
+            {10,3,0,2},
+            {0,11,2,0},
+            };
+        ShortestPath t = new ShortestPath();
+        t.dijkstra(graph, 0);
+    }
+}
+
+Output:
+Vertex   Distance from Source
+0 tt 0
+1 tt 5
+2 tt 8
+3 tt 10
+7.PROGRAM
+ECHOSERVER:
+import java.io.*;
+import java.net.*;
+class echos {
+    public static void main(String args[]) throws Exception
+    {
+        String echoin;
+        ServerSocket svrsoc;
+        Socket soc;
+        BufferedReader br;
+        try
+        {
+            svrsoc = new ServerSocket(2000);
+            soc = svrsoc.accept();
+            br = new BufferedReader (new InputStreamReader(soc.getInputStream()));
+            PrintStream ps = new PrintStream(soc.getOutputStream());
+            System.out.println("Connected for echo:");
+            while((echoin=br.readLine())!=null)
+            {
+                if(echoin.equals("end"))
+                {
+                    System.out.println("Client disconnected");
+                    br.close();
+                    break;
+                }
+                else
+                    ps.println(echoin);
+            }
+        } 
+        catch(UnknownHostException e)
+        {
+            System.out.println(e.toString());
+        }
+        catch(IOException ioe)
+        {
+            System.out.println(ioe);
+        }
+    }    
+}
+ECHOCLIENT:
+import java.io.*;
+import java.net.*;
+class echoc {
+public static void main(String args[]) throws Exception    
+{
+    String sockin;
+    try
+    {
+        Socket csock = new Socket(InetAddress.getLocalHost(),2000);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br_sock = new BufferedReader(new InputStreamReader(csock.getInputStream()));
+        PrintStream ps = new PrintStream(csock.getOutputStream());
+        System.out.println("Start echoing... type 'end' to terminate");
+        while((sockin=br.readLine())!=null)
+        {
+            ps.println(sockin);
+            if(sockin.equals("end"))
+                break;
+            else 
+                System.out.println("echoed from server:"+br_sock.readLine());
+            
+        }
+    }
+catch(UnknownHostException e)
+{
+    System.out.println(e.toString());
+    
+}
+catch(IOException ioe)
+{
+    System.out.println(ioe);
+}
+}
+}
+8.PROGRAM:
+• UDPDNSSERVER:
+import java.io.*;
+import java.net.*;
+public class udpdnsserver
+{
+private static int indexOf(String[] array, String str)
+{
+str = str.trim();
+for (int i=0; i < array.length; i++)
+{
+if (array[i].equals(str))
+return i;
+}
+return -1;
+}
+public static void main(String arg[])throws IOException
+{
+String[] hosts = {"yahoo.com", "gmail.com","cricinfo.com", "facebook.com"};
+String[] ip = {"68.180.206.184", "209.85.148.19","80.168.92.140","69.63.189.16"};
+System.out.println("Press Ctrl + C to Quit");
+while (true)
+{
+DatagramSocket serversocket=new DatagramSocket(1362);
+byte[] senddata = new byte[1021];
+byte[] receivedata = new byte[1021];
+DatagramPacket recvpack = new
+DatagramPacket(receivedata, receivedata.length);
+serversocket.receive(recvpack);
+String sen = new String(recvpack.getData());
+InetAddress ipaddress = recvpack.getAddress();
+int port = recvpack.getPort();
+String capsent;
+System.out.println("Request for host " + sen); 
+if(indexOf (hosts, sen) != -1)
+capsent = ip[indexOf (hosts, sen)];
+else
+capsent = "Host Not Found";
+senddata = capsent.getBytes();
+DatagramPacket pack = new DatagramPacket(senddata,
+senddata.length,ipaddress,port);
+serversocket.send(pack);
+serversocket.close();
+}}}
+• UDPDNSCLIENT:
+import java.io.*;
+import java.net.*;
+public class udpdnsclient
+{
+public static void main(String args[])throws IOException
+{
+BufferedReader br = new BufferedReader(new 
+InputStreamReader(System.in));
+DatagramSocket clientsocket = new DatagramSocket();
+InetAddress ipaddress;
+if (args.length == 0)
+ipaddress = InetAddress.getLocalHost();
+else
+ipaddress = InetAddress.getByName(args[0]);
+byte[] senddata = new byte[1024];
+byte[] receivedata = new byte[1024];
+int portaddr = 1362;
+System.out.print("Enter the hostname : ");
+String sentence = br.readLine();
+senddata = sentence.getBytes();
+DatagramPacket pack = new DatagramPacket(senddata,senddata.length,
+ipaddress,portaddr);
+clientsocket.send(pack);
+DatagramPacket recvpack =new 
+DatagramPacket(receivedata,receivedata.length);
+clientsocket.receive(recvpack);
+String modified = new String(recvpack.getData());
+System.out.println("IP Address: " + modified);
+clientsocket.close();
+}}
+OUTPUT:
+• UDPDNSSERVER:
+G:\>javac udpdnsserver.java
+G:\>javac udpdnsserver.java
+G:\>java udpdnsserver
+Press Ctrl + C to Quit
+Request for host yahoo.com
+Request for host google.com
+Request for host cricinfo.com
+• UDPDNSCLIENT:
+G:\>javac udpdnsclient.java
+G:\>java udpdnsclient
+Enter the hostname : yahoo.com
+IP Address: 68.180.206.184
+G:\>java udpdnsclient
+Enter the hostname : google.com
+IP Address: Host Not Found
+G:\>java udpdnsclient
+Enter the hostname : cricinfo.com
+IP Address: 80.168.92.140
+
+9.PROGRAM
+Step 1: Open the CISCO PACKET TRACER
+Step 2: Select and Place PC0 on the screen
+Step 3:Click on it and enter the Gateway in the Config Tab
+Step 4: Click the IP configuration in the Desktop Tab and Enter the IP Address
+Step 5: Select and Place the PC1 on the screen
+Step 6: Click on it and enter the Gateway in the Config Tab
+Step 7: Click the IP configuration in the Desktop Tab and Enter the IP Address
+Step 8: Select and place the Switch0 on the screen
+Step 9: Select and Place the Switch1 on the screen
+Step 10: Select and Place the Router0 on the screen
+Step 11: Click on it and Enter the IP Address in the FastEthernet0/0 of the Config
+ Tab
+ 
+Step 12: Enter the IP Address in the FastEthernet0/1 of the Config Tab
+Step 13: Select and Place the PC2 on the screen
+Step 14: Click on it and Enter the Gateway of the Config Tab
+Step 15: Click the IP configuration in the Desktop Tab and Enter the IP Address
+Step 16: Select and Place the PC3 on the screen
+Step 17: Click on it and Enter the Gateway in the Config Tab
+Step 18: Click the IP configuration in the Desktop Tab and Enter the IP Address
+Step 19: Connect the PC0 and Switch0 using the Copper Straight through 
+ Connection.
+Step 20: Connect the PC1 and Switch1 using the Copper Straight through
+ Connection. 
+Step 21: Connect the Switch0 and Router0 using the Copper straight through 
+ Connection.
+Step 22: Connect the Switch0 and Router1 using the Copper straight through 
+ Connection.
+Step 23: Connect the Switch1 and PC2 using the Copper straight through Connection.
+Step 24: Connect the Switch1 and PC3 using the Copper straight through Connection
+Step 25: Click on the PC3 and open the Command Prompt in the Desktop Tab
+Step 26: Enter the command ‘ping’ using the PC3’s IP Address
+Step 27: Enter the command ‘ipconfig’ to get the details of the PC3
+Step 28: Open the Traffic Generator in the Desktop Tab of the PC1and enter the necessary 
+details. 
+Step 29: Change the Event List from ‘Real time’ to ‘Stimulation’ and Click the 
+AutoCapture option in the PlayControl button of the newly opened window.Check the flow of 
+messages that indicate the Traffic between the Source and Destination
+
+10.PROGRAM
+STEP 1: Open the CISCO PACKET TRACER
+STEP 2: Select and Place PC0 on the screen
+STEP 3:Click on it and enter the Gateway in the Config Tab
+STEP 4: Click the IP configuration in the Desktop Tab and Enter the IP Address
+STEP 5: Select and Place the PC1 on the screen
+STEP 6: Click on it and enter the Gateway in the Config Tab
+STEP 7: Click the IP configuration in the Desktop Tab and Enter the IP Address
+STEP 8: Select and place the Switch0 on the screen
+STEP 9: Select and Place the Switch1 on the screen
+STEP 10: Select and Place the Router0 on the screen
+STEP 11: Click on it and Enter the IP Address in the FastEthernet0/0 of the Config Tab
+STEP 12: Enter the IP Address in the FastEthernet0/1 of the Config Tab
+STEP 13: Select and Place the PC2 on the screen
+STEP 14: Click on it and Enter the Gateway of the Config Tab
+STEP 15: Click the IP configuration in the Desktop Tab and Enter the IP Address
+STEP 16: Select and Place the PC3 on the screen
+STEP 17: Click on it and Enter the Gateway in the Config Tab
+STEP 18: Click the IP configuration in the Desktop Tab and Enter the IP Address
+STEP 19: Connect the PC0 and Switch0 using the Copper Straight through Connection
+STEP 20: Connect the PC1 and Switch1 using the Copper Straight through Connection
+STEP 21: Connect the Switch0 and Router0 using the Copper straight through Connection
+STEP 22: Connect the Switch0 and Router1 using the Copper straight through Connection
+STEP 23: Connect the Switch1 and PC2 using the Copper straight through Connection
+STEP 24: Connect the Switch1 and PC3 using the Copper straight through Connection
+STEP 25: Click on the PC3 and open the Command Prompt in the Desktop Tab
+STEP 26: Enter the command ‘ping’ using the PC3’s IP Address
+STEP 27: Enter the command ‘ipconfig’ to get the details of the PC3
+STEP 28: Open the Traffic Generator in the Desktop Tab of the PC1and enter the necessary details. 
+STEP 29: Change the Event List from ‘Real time’ to ‘Stimulation’ and Click the AutoCapture option in 
+the PlayControl button of the newly opened window.Check the flow of messages that indicate the Traffic 
+between the Source and Destination
+
+*/
+
